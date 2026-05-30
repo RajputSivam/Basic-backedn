@@ -1,0 +1,55 @@
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const app = express();
+const bcrypt = require('bcrypt');//helps in incryption and decryption
+const jwt = require('jsonwebtoken');
+
+app.use(cookieParser());
+
+// app.get('/', function (req, res) {
+//     res.cookie("name", "harshta");
+//     res.send("done");
+// })
+//how to set cookie
+// app.get("/read", function (req, res) {
+//     console.log(req.cookies);
+//     res.send("read page");
+// })
+// //how to read cookie
+// app.get("/read", function (req, res) {
+//     console.log(req.cookies);
+//     res.send("read page");
+// })
+
+// app.get("/", function (req, res) {
+//     bcrypt.genSalt(10, function (err, salt) {
+//         bcrypt.hash("mypassoword", salt, function (err, hash) {
+//             console.log(hash);
+//         });
+//     });
+// })
+//
+//$2b$10$4jZssOafsM1jqbNuELniKu0GPhne41QsNQkCLGRIA0Mv88BFBNvfm
+
+// app.get("/", async function (req, res) {
+//     let result = await bcrypt.compare("mypassoword", "$2b$10$4jZssOafsM1jqbNuELniKu0GPhne41QsNQkCLGRIA0Mv88BFBNvfm$2b$10$4jZssOafsM1jqbNuELniKu0GPhne41QsNQkCLGRIA0Mv88BFBNvfm")
+//     console.log(result);
+//     res.send(result.toString());
+// });
+
+// app.get("/", function (req, res) {
+//     let token = jwt.sign({ email: "harsh@exmpl.com" }, "sign")
+//     res.cookie("token", token)
+//     console.log(token);
+//     res.send(done);
+// })
+
+app.get("/read", function (req, res) {
+    let data=jwt.verify( req.cookies.token,"secret");
+    console.log(data);
+})
+
+
+app.listen(3000);
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhcnNoQGV4bXBsLmNvbSIsImlhdCI6MTc4MDE2OTc3MH0.jAleSKC5pAgkFx02Dc40fbeBO4mSKXHhjpTGRPtCf6c
